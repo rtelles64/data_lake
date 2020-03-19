@@ -17,6 +17,14 @@ os.environ['AWS_SECRET_ACCESS_KEY']=config['AWS_SECRET_ACCESS_KEY']
 
 
 def create_spark_session():
+    '''
+    Creates Spark session
+
+    Returns
+    -------
+    SparkSession
+        A SparkSession object
+    '''
     spark = SparkSession \
         .builder \
         .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.0") \
@@ -25,6 +33,18 @@ def create_spark_session():
 
 
 def process_song_data(spark, input_data, output_data):
+    '''
+    Processes song data
+
+    Parameters
+    ----------
+    spark : SparkSession object
+        The Spark session to load/save data
+    input_data : str
+        Input file directory
+    output_data : str
+        Output parquet file directory
+    '''
     # get filepath to song data file
     song_data = input_data + "song_data/*/*/*"
 
@@ -56,6 +76,18 @@ def process_song_data(spark, input_data, output_data):
 
 
 def process_log_data(spark, input_data, output_data):
+    '''
+    Processes log data
+
+    Parameters
+    ----------
+    spark : SparkSession object
+        The Spark session to load/save data
+    input_data : str
+        Input file directory
+    output_data : str
+        Output parquet file directory
+    '''
     # get filepath to log data file
     log_data = input_data + "log_data/*/*/*"
 
@@ -132,6 +164,9 @@ def process_log_data(spark, input_data, output_data):
 
 
 def main():
+    '''
+    The main function
+    '''
     spark = create_spark_session()
     input_data = "s3a://udacity-dend/"
     output_data = "s3a://data_eng/project4/"
